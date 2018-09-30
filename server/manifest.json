@@ -1,0 +1,25 @@
+{
+    "name": "58fangfe PWA demo",
+    "short_name": "58PWA",
+    "start_url": "/views/index.html",
+    "theme_color": "#FFDF00",
+    "background_color": "#FFDF00",
+    "display": "standalone",
+    "description": "pwa demo test", 
+    "orientation": "natural", 
+    "theme_color": "#FFDF00", 
+    "background_color": "#FFDF00",
+    "icons": [
+        {
+            "src": "https://pwa.oss-cn-beijing.aliyuncs.com/192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://pwa.oss-cn-beijing.aliyuncs.com/144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "scope": "/" 
+  }
