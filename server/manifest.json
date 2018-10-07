@@ -1,3 +1,4 @@
+
 {
     "name": "58fangfe PWA demo",
     "short_name": "58PWA",
@@ -7,8 +8,6 @@
     "display": "standalone",
     "description": "pwa demo test", 
     "orientation": "natural", 
-    "theme_color": "#FFDF00", 
-    "background_color": "#FFDF00",
     "icons": [
         {
             "src": "https://pwa.oss-cn-beijing.aliyuncs.com/192.png",
