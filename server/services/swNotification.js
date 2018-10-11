@@ -27,13 +27,13 @@ module.exports = {
         }
       };
 
-      var body = '欢迎注册58fang SW';
-      var iconUrl = 'https://pwa.oss-cn-beijing.aliyuncs.com/=98765431``44.png';
+      var body = '欢迎注册58fang PWA';
+      var iconUrl = 'https://pwa.oss-cn-beijing.aliyuncs.com/144.png';
 
       webpush.sendNotification(pushSubscription,
           JSON.stringify({
             msg: body,
-            url: 'https://10.252.62.116:3000/views/index.html',
+            url: 'http://localhost:3000/views/index.html',
             icon: iconUrl,
             type: 'register'
           })
@@ -67,19 +67,20 @@ module.exports = {
         }
       };
 
-      var body = '号外: 要涨工资了！';
+      var body = '号外: 要发工资了！';
       var iconUrl = 'https://pwa.oss-cn-beijing.aliyuncs.com/144.png';
+      var image='https://blog-vue.oss-cn-beijing.aliyuncs.com/face/ziya.gif';
 
       webpush.sendNotification(pushSubscription,
           JSON.stringify({
             msg: body,
-            url: 'http://localhost:3000/views/index.html',
             icon: iconUrl,
+            image:image,
             type: 'actionMessage'
           }))
         .then(result => {
           console.log(result);
-          res.sendStatus(201);
+          return result
         })
         .catch(err => {
           console.log(err);

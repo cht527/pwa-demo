@@ -60,7 +60,7 @@
                        :mainBusinessList="mainBusinessList"
           />
           
-          <sticky-btn @handleClick="handleInstallApp" class="optimization-btn-add" >安装到桌面</sticky-btn>
+          <sticky-btn @handleClick="handleInstallApp" class="optimization-btn-add" >一键优化</sticky-btn>
           <sticky-btn @handleClick="handleCancelSub" class="optimization-btn" >取消推送订阅</sticky-btn>
 
       </div>
@@ -346,7 +346,7 @@ export default {
       
       */
       handleInstallApp(){
-          window.installApp()
+          window.location.href="./views/addPlan.html"
       },
       /*
         取消订阅推送

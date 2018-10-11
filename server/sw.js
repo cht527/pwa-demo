@@ -1,15 +1,13 @@
-let cacheName = "PWA_CACHE-v1";
+let cacheName = "PWA_CACHE-v2";
 const offlineUrl="/views/offlinePage.html";
 const offlineJs="/offlinePage.js";
 const offlineCss="/offlinePage.css";
 self.addEventListener('install', event => {
-  console.log('install');
   self.skipWaiting(); //触发 activate 事件，告知 Service Worker 立即开始工作
   event.waitUntil(
     caches
     .open(cacheName) // 打开缓存
     .then(cache => cache.addAll([
-        '/initSW.js',
         '/manifest.json',
         '/views/index.html',
         offlineUrl,offlineJs,offlineCss,
@@ -25,7 +23,6 @@ self.addEventListener('install', event => {
 
 // --- 接收通知
 self.addEventListener('push', function (event) {
-  alert('push');
 
   var payload = event.data ? JSON.parse(event.data.text()) : 'no payload';
 
@@ -63,7 +60,7 @@ self.addEventListener('push', function (event) {
 //---处理通知的单击事件
 self.addEventListener('notificationclick', function (event) {
   event.notification.close();// --- 单击通知标题就关闭
-
+  
   // 如果添加了action
   if (event.action === 'addPlan') {
     clients.openWindow('http://localhost:3000/views/addPlan.html');

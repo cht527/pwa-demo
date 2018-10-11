@@ -49,13 +49,12 @@ module.exports={
         //console.log(ctx.request.body);
         let req=ctx.request.body;
         let res=await swNotification.registerSW(req);
-        console.log(`resigster:${res}`);
         ctx.status=201
     },
     async sendMessage(ctx){
         let req=ctx.request.body;
         let res=await swNotification.sendMessage(req);
-        ctx.body=res;
+        ctx.status=201
     },
     
 }

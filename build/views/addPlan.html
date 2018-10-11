@@ -55,17 +55,16 @@
     }
 
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('/sw.js', {
+      navigator.serviceWorker.register('/sw.js', {
             scope: '/'
           })
           .then(function (registration) {
             return registration.pushManager.getSubscription()
               .then(function (subscription) {
-                if (subscription) {
+                /* if (subscription) {
                   // 已经注册
                   return;
-                }
+                } */
                 return registration.pushManager.subscribe({ // 沒有注册顯示提示
                     userVisibleOnly: true,
                     applicationServerKey: determineAppServerKey()
@@ -77,7 +76,7 @@
                     authSecret = rawAuthSecret ?
                       btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
                     endpoint = subscription.endpoint;
-                    return fetch('/sw/registerSW', { // 将详细信息发送给服务器以注册用户
+                    return fetch('/sw/sendMessage', { // 将详细信息发送给服务器以注册用户
                       method: 'post',
                       headers: new Headers({
                         'content-type': 'application/json'
@@ -99,7 +98,6 @@
             // 注册失败:(
             console.log('ServiceWorker registration failed: ', err);
           });
-      });
     }
 }
   </script>

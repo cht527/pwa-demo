@@ -87,25 +87,15 @@ window.addEventListener('load', function () {
   }
   // -- 推迟提示
   window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
-    savePrompt = e;
-    return false;
+    e.userChoice.then((result) => {
+      if (result.outcome == 'dismissed') {
+        alert('已取消安装')
+      } else {
+        alert('应用已安装')
+      }
+    })
   });
-  // -- 安装app
-  window.installApp = function () {
-    if (savePrompt !== undefined) {
-      savePrompt.userChoice.then((result) => {
-        if (result.outcome == 'dismissed') {
-          alert('已取消安装')
-        } else {
-          alert('应用已安装')
-        }
-        savePrompt = null
-      })
-    } else {
-      console.log('未触发install事件')
-    }
-  }
+ 
 });
 
 // 取消订阅
