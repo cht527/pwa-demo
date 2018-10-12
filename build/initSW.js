@@ -106,7 +106,7 @@ window.unsubscribe = function () {
         ServiceWorkerRegistration.pushManager.getSubscription()
           .then((subscription) => {
             if (!subscription) {
-              console.log("未注册service worker");
+              console.log("未订阅");
               return;
             }
             subscription.unsubscribe()

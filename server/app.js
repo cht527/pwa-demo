@@ -10,7 +10,6 @@ const app = new Koa();
 const routers = require('./routers/index');// 路由配置
 
 
-
 // 设置VAPID详情 
 webpush.setVapidDetails(
     'mailto:cht527@126.com',

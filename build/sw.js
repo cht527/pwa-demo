@@ -1,3 +1,5 @@
+importScripts('/idb-keyval.js');
+
 let cacheName = "PWA_CACHE-v2";
 const offlineUrl="/views/offlinePage.html";
 const offlineJs="/offlinePage.js";
@@ -12,7 +14,6 @@ self.addEventListener('install', event => {
         '/views/index.html',
         offlineUrl,offlineJs,offlineCss,
         '/vendor.js', // 添加文件到缓存中
-        '/vendor.css',
         '/index.js',
         '/index.css'
       ])
@@ -131,3 +132,25 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
+// 监听 sync 事件
+self.addEventListener('sync',(event)=>{
+  if(event.tag=="contact"){
+    event.waitUntil(
+      idbKeyval.get('sendMessage').then(value=>
+        fetch('/sync/syncMessage',{
+          method:'POST',
+          headers: new Headers({ 'content-type': 'application/json' }),
+          body:JSON.stringify(value)
+        })
+        .then(response=> response.text())
+        .then((res)=>{
+            console.log(res);
+            idbKeyval.delete('sendMessage'); // 删除indexDB中的缓存
+        }).catch(err=>{
+          console.log(err)
+        })
+      )
+    )
+  }
+})

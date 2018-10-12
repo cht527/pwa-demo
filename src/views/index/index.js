@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueExt from '@/plugins'
 import IndexView from './index.vue'
 
-import 'mint-ui/lib/style.css'
 Vue.config.productionTip = false
 
 Vue.use(VueExt);

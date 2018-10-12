@@ -1,6 +1,7 @@
 const path = require('path'); 
 const serviceApi=require('../services/getStaticInfo');
 const swNotification=require('../services/swNotification');
+const sync=require('../services/sync');
 
 module.exports={
     // api 请求
@@ -44,6 +45,7 @@ module.exports={
         let res=await serviceApi.saveMainBusiness(req);
         ctx.body=res;
     },
+
     // 注册sw 订阅
     async registerSW(ctx){
         //console.log(ctx.request.body);
@@ -56,5 +58,11 @@ module.exports={
         let res=await swNotification.sendMessage(req);
         ctx.status=201
     },
-    
+
+    // 后台同步
+    async syncMessage(ctx){
+        let req=ctx.request.body;
+        let res=await sync.syncMessage(req);
+        ctx.body=res
+    },
 }

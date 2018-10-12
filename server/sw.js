@@ -1,3 +1,5 @@
+importScripts('/idb-keyval.js');
+
 let cacheName = "PWA_CACHE-v2";
 const offlineUrl="/views/offlinePage.html";
 const offlineJs="/offlinePage.js";
@@ -40,8 +42,8 @@ self.addEventListener('push', function (event) {
     event.waitUntil(
       self.registration.showNotification(title, {
         body: payload.msg,
-        url: payload.url,
         icon: payload.icon,
+        image:payload.image,
         actions: [{
             action: 'addPlan',
             title: '新建计划'
@@ -59,8 +61,14 @@ self.addEventListener('push', function (event) {
 
 //---处理通知的单击事件
 self.addEventListener('notificationclick', function (event) {
-  event.notification.close();// --- 单击通知标题就关闭
-  
+  if (!event.action) {
+      // 没有点击在按钮上
+      console.log('Notification Click.');
+      return;
+  }
+  //console.log(JSON.stringify(event))
+  //event.notification.close();// --- 单击通知标题就关闭
+  console.log('Notification Click.');
   // 如果添加了action
   if (event.action === 'addPlan') {
     clients.openWindow('http://localhost:3000/views/addPlan.html');
@@ -125,3 +133,25 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
+// 监听 sync 事件
+self.addEventListener('sync',(event)=>{
+  if(event.tag=="contact"){
+    event.waitUntil(
+      idbKeyval.get('sendMessage').then(value=>
+        fetch('/sync/syncMessage',{
+          method:'POST',
+          headers: new Headers({ 'content-type': 'application/json' }),
+          body:JSON.stringify(value)
+        })
+        .then(response=> response.text())
+        .then((res)=>{
+            console.log(res);
+            idbKeyval.delete('sendMessage'); // 删除indexDB中的缓存
+        }).catch(err=>{
+          console.log(err)
+        })
+      )
+    )
+  }
+})

@@ -61,10 +61,10 @@
           .then(function (registration) {
             return registration.pushManager.getSubscription()
               .then(function (subscription) {
-                /* if (subscription) {
+                if (subscription) {
                   // 已经注册
                   return;
-                } */
+                }
                 return registration.pushManager.subscribe({ // 沒有注册顯示提示
                     userVisibleOnly: true,
                     applicationServerKey: determineAppServerKey()
@@ -101,7 +101,7 @@
     }
 }
   </script>
-<link href="/vendor.css" rel="stylesheet"><link href="/addPlan.css" rel="stylesheet"></head>
+<link href="/addPlan.css" rel="stylesheet"></head>
 
 <body>
   <div id="app"></div>
