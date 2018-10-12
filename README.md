@@ -1,15 +1,13 @@
 ﻿
 
-## install
+## install and run
 
 ``` bash
 npm install
-npm run build
-npm run dev
+cd server
+node app.js
 ```
 
-## docs
-[技术选型](./docs/index.md)
 
 
 
