@@ -79,7 +79,7 @@
       document.getElementById('remind').style.bottom="0px";
       setTimeout(()=>{
         document.getElementById('remind').style.bottom="-80px";
-      },6000)
+      },4000)
     }
     if ('serviceWorker' in navigator ) {
         navigator.serviceWorker.register('/sw.js')
@@ -97,13 +97,13 @@
             });
           });
       })
-    }/*  else {
+    } else {
         document.getElementById('submit').addEventListener('click', () => {
               sendMessage() 
               .then(displayMessageNotification('Message sent'))
               .catch(err => { displayMessageNotification('Message failed') });
         });
-      } */
+      } 
     
     </script>
 </html>
