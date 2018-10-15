@@ -67,7 +67,9 @@ module.exports = {
         }
       };
 
-      var body = '号外: 要发工资了！';
+      let messageList=['本消息来自新建计划','号外: 要发工资了','中国的房地产要崩盘了！']
+
+      var body = messageList[Math.floor(Math.random()*3)];
       var iconUrl = 'https://pwa.oss-cn-beijing.aliyuncs.com/144.png';
       var image='https://blog-vue.oss-cn-beijing.aliyuncs.com/face/ziya.gif';
 

@@ -61,6 +61,7 @@
           />
           
           <sticky-btn @handleClick="handleInstallApp" class="optimization-btn-add" >一键优化</sticky-btn>
+          <p><br/></p>
           <sticky-btn @handleClick="handleCancelSub" class="optimization-btn" >取消推送订阅</sticky-btn>
 
       </div>
@@ -126,7 +127,7 @@ export default {
        */
       fetchGetCateListData() {
 
-        this.$http.get('/api_cate_list.json', {
+        this.$http.get(this.$api.apiGetCateList, {
           //brokerId: 12131,
         }).then(res => {
             if (res && res.code == 0 && res.data) {
@@ -164,7 +165,7 @@ export default {
        获取排名
        */
       fetchGetSubregionVppvRankData(cateId){
-          this.$http.get('/api_get_subregion_vppvrank.json', {
+          this.$http.postJson(this.$api.apiGetSubregionVppvRank, {
             //brokerId: this.brokerId,
             cateId:cateId
           }).then(res => {
@@ -186,7 +187,7 @@ export default {
        * brokerId,cateId
        */
         fetchGetPromotionAndHouseKeeperInfoData(cateId){
-          this.$http.get('/api_get_promotion_and_house_keeper_info.json', {
+          this.$http.postJson(this.$api.apiGetPromotionAndHouseKeeperInfo, {
             cateId:cateId
           }).then(res => {
             //console.log(res);
@@ -220,7 +221,7 @@ export default {
        * brokerId,cateId
        */
       fetchGetMainBusinessData(cateId){
-          this.$http.get('/api_get_main_business.json', {
+          this.$http.postJson(this.$api.apiGetMainBusiness, {
             //brokerId: this.brokerId,
             cateId:cateId
           }).then(res => {
@@ -346,7 +347,8 @@ export default {
       
       */
       handleInstallApp(){
-          window.location.href="./views/addPlan.html"
+          debugger;
+          window.location.href="/views/addPlan.html"
       },
       /*
         取消订阅推送

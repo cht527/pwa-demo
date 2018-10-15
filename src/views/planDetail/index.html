@@ -57,7 +57,7 @@
       transition: all .6s;
     }
   </style>
-</head>
+<link href="/planDetail.css" rel="stylesheet"></head>
 
 <body>
     <h1 class="title">计划详情</h1> 
@@ -73,12 +73,14 @@
     <div id="remind" class="sync-remind">消息将在联网后发送</div>
   <div id="app"></div>
 
-</body>
+<script type="text/javascript" src="/vendor.js"></script><script type="text/javascript" src="/planDetail.js"></script></body>
 <script>
-    function displayNotification(){
-      document.getElementById('remind').style.bottom="0px";
+    function displayNotification(text){
+      let remind=document.getElementById('remind');
+      remind.innerHTML=text;
+      remind.style.bottom="0px";
       setTimeout(()=>{
-        document.getElementById('remind').style.bottom="-80px";
+        remind.style.bottom="-80px";
       },4000)
     }
     if ('serviceWorker' in navigator ) {
@@ -86,22 +88,42 @@
         .then(registration => navigator.serviceWorker.ready)
         .then(registration => {
           document.getElementById('submit').addEventListener('click', () => {
-            registration.sync.register('contact').then(() => {     // 通过sync方法 注册 contact
-              let payload = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                text: document.getElementById('text').value,
-              };
-              idbKeyval.set('sendMessage', payload); // 保存信息到indexdb
-              displayNotification();
-            });
+            fetch('/sync/syncMessage',{
+              method:'POST',
+              headers: new Headers({ 'content-type': 'application/json' }),
+              body:JSON.stringify(value)
+            })
+            .then(response=> response.text())
+            .then((res)=>{
+              displayNotification(res);
+            }).catch(err=>{
+              console.log(err);
+              registration.sync.register('contact').then(() => {     // 通过sync方法 注册 contact
+                let payload = {
+                  name: document.getElementById('name').value,
+                  email: document.getElementById('email').value,
+                  text: document.getElementById('text').value,
+                };
+                idbKeyval.set('sendMessage', payload); // 保存信息到indexdb
+                displayNotification('消息将在联网后发送');
+              });
+            })
+            
           });
       })
     } else {
         document.getElementById('submit').addEventListener('click', () => {
-              sendMessage() 
-              .then(displayMessageNotification('Message sent'))
-              .catch(err => { displayMessageNotification('Message failed') });
+          fetch('/sync/syncMessage',{
+            method:'POST',
+            headers: new Headers({ 'content-type': 'application/json' }),
+            body:JSON.stringify(value)
+          })
+          .then(response=> response.text())
+          .then((res)=>{
+            displayNotification(res);
+          }).catch(err=>{
+             console.log(err)
+          })
         });
       } 
     

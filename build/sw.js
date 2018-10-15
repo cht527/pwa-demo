@@ -15,7 +15,11 @@ self.addEventListener('install', event => {
         offlineUrl,offlineJs,offlineCss,
         '/vendor.js', // 添加文件到缓存中
         '/index.js',
-        '/index.css'
+        '/index.css',
+        "//img.58cdn.com.cn/fangrs/img/8e977675bdef6f689b55694655c61fc5.png",
+        "//img.58cdn.com.cn/fangrs/img/aaa5ecd067ce1e4ee93e429fb1fdaa54.png",
+        "//pic1.58cdn.com.cn/nowater/fangfe/n_v2e3b79152b99c40a98234672bda6c460a.png",
+        "//pic6.58cdn.com.cn/nowater/fangfe/n_v29faa9c277b32473c8f9aff8ce6723bc5.png"
       ])
     )
   );

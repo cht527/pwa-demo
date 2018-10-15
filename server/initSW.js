@@ -42,7 +42,7 @@ window.addEventListener('load', function () {
         } else if (registration.active) {
           serviceWorker = registration.active;
           console.log('Service worker active');
-          return registration.pushManager.getSubscription()
+         /*  return registration.pushManager.getSubscription() 
             .then(function (subscription) {
               if (subscription) {
                 // 已经注册
@@ -74,11 +74,8 @@ window.addEventListener('load', function () {
                   console.log('my err')
                   console.log(err)
                 });
-            });
+            });*/
         }
-
-        // 注册成功
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
       })
       .catch(function (err) {
         // 注册失败
