@@ -30,7 +30,7 @@
 
   </script>
   <script>
-    window.subInfo=function(){
+    
     let endpoint;
     let key;
     let authSecret;
@@ -56,50 +56,63 @@
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js', {
-            scope: '/'
-          })
-          .then(function (registration) {
-            return registration.pushManager.getSubscription()
-              .then(function (subscription) {
-                if (subscription) {
-                  // 已经注册
-                  return;
-                }
-                return registration.pushManager.subscribe({ // 沒有注册顯示提示
-                    userVisibleOnly: true,
-                    applicationServerKey: determineAppServerKey()
+          scope: '/'
+        })
+        .then(function (registration) {
+          return registration.pushManager.getSubscription()
+            .then(function (subscription) {
+              if (subscription) {
+                // 已经注册
+                return;
+              }
+              return registration.pushManager.subscribe({ // 沒有注册顯示提示
+                  userVisibleOnly: true,
+                  applicationServerKey: determineAppServerKey()
+                })
+                .then(function (subscription) {
+                  var rawKey = subscription.getKey ? subscription.getKey('p256dh') : ''; //从订阅对象获取密钥和authSecret
+                  key = rawKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawKey))) : '';
+                  var rawAuthSecret = subscription.getKey ? subscription.getKey('auth') : '';
+                  authSecret = rawAuthSecret ?
+                    btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
+                  endpoint = subscription.endpoint;
+                  return fetch('/sw/sendMessage', { // 将详细信息发送给服务器以注册用户
+                    method: 'post',
+                    headers: new Headers({
+                      'content-type': 'application/json'
+                    }),
+                    body: JSON.stringify({
+                      endpoint: subscription.endpoint,
+                      key: key,
+                      authSecret: authSecret,
+                    }),
                   })
-                  .then(function (subscription) {
-                    var rawKey = subscription.getKey ? subscription.getKey('p256dh') : ''; //从订阅对象获取密钥和authSecret
-                    key = rawKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(rawKey))) : '';
-                    var rawAuthSecret = subscription.getKey ? subscription.getKey('auth') : '';
-                    authSecret = rawAuthSecret ?
-                      btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuthSecret))) : '';
-                    endpoint = subscription.endpoint;
-                    return fetch('/sw/sendMessage', { // 将详细信息发送给服务器以注册用户
-                      method: 'post',
-                      headers: new Headers({
-                        'content-type': 'application/json'
-                      }),
-                      body: JSON.stringify({
-                        endpoint: subscription.endpoint,
-                        key: key,
-                        authSecret: authSecret,
-                      }),
-                    })
-                  }).catch(err=>{
-                      console.log(err)
-                  });
-              });
-            // 注册成功
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          })
-          .catch(function (err) {
-            // 注册失败:(
-            console.log('ServiceWorker registration failed: ', err);
-          });
+                }).catch(err => {
+                  console.log(err)
+                });
+            });
+          // 注册成功
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        })
+        .catch(function (err) {
+          // 注册失败:(
+          console.log('ServiceWorker registration failed: ', err);
+        });
     }
-}
+    window.subInfo = function () {
+      fetch('/sw/sendMessage', { // 将详细信息发送给服务器以注册用户
+        method: 'post',
+        headers: new Headers({
+          'content-type': 'application/json'
+        }),
+        body: JSON.stringify({
+          endpoint: endpoint,
+          key: key,
+          authSecret: authSecret,
+        }),
+      })
+    }
+
   </script>
 </head>
 
