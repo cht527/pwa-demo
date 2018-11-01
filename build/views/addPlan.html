@@ -86,7 +86,7 @@
                       key: key,
                       authSecret: authSecret,
                     }),
-                  });
+                  })
                 }).catch(err => {
                   console.log(err)
                 });
@@ -99,7 +99,6 @@
           console.log('ServiceWorker registration failed: ', err);
         });
     }
-
     window.subInfo = function () {
       fetch('/sw/sendMessage', { // 将详细信息发送给服务器以注册用户
         method: 'post',
@@ -115,14 +114,11 @@
     }
 
   </script>
-  <link href="/addPlan.css" rel="stylesheet">
-</head>
+<link href="/addPlan.css" rel="stylesheet"></head>
 
 <body>
   <div id="app"></div>
 
-  <script type="text/javascript" src="/vendor.js"></script>
-  <script type="text/javascript" src="/addPlan.js"></script>
-</body>
+<script type="text/javascript" src="/vendor.js"></script><script type="text/javascript" src="/addPlan.js"></script></body>
 
 </html>
