@@ -8,18 +8,18 @@ const controller = require('./controller');
 const routers=router
     .get('/getCateList',controller.getCateList) // 获取tab列表 
 
-    .post('/getSubregionVppvRank',controller.getSubregionVppvRank)  // 获取排名
+    .get('/getSubregionVppvRank',controller.getSubregionVppvRank)  // 获取排名
 
-    .post('/getPromotionAndHouseKeeperInfo',controller.getPromotionAndHouseKeeperInfo) //获取推广管家信息
+    .get('/getPromotionAndHouseKeeperInfo',controller.getPromotionAndHouseKeeperInfo) //获取推广管家信息
 
-    .post('/getMainBusiness',controller.getMainBusiness) //获取主营商圈信息
+    .get('/getMainBusiness',controller.getMainBusiness) //获取主营商圈信息
 
-    .post('/getCityList',controller.getCityList) // 获取城市列表
+    .get('/getCityList',controller.getCityList) // 获取城市列表
 
-    .post('/getAreaList',controller.getAreaList) //获取区域列表
+    .get('/getAreaList',controller.getAreaList) //获取区域列表
 
-    .post('/getBusList',controller.getBusList) //获取商圈列表
+    .get('/getBusList',controller.getBusList) //获取商圈列表
 
-    .post('/saveMainBusiness',controller.saveMainBusiness) //保存商圈信息 */
+    .get('/saveMainBusiness',controller.saveMainBusiness) //保存商圈信息 */
 
 module.exports=routers

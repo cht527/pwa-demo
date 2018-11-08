@@ -165,7 +165,7 @@ export default {
        获取排名
        */
       fetchGetSubregionVppvRankData(cateId){
-          this.$http.postJson(this.$api.apiGetSubregionVppvRank, {
+          this.$http.get(this.$api.apiGetSubregionVppvRank, {
             //brokerId: this.brokerId,
             cateId:cateId
           }).then(res => {
@@ -187,7 +187,7 @@ export default {
        * brokerId,cateId
        */
         fetchGetPromotionAndHouseKeeperInfoData(cateId){
-          this.$http.postJson(this.$api.apiGetPromotionAndHouseKeeperInfo, {
+          this.$http.get(this.$api.apiGetPromotionAndHouseKeeperInfo, {
             cateId:cateId
           }).then(res => {
             //console.log(res);
@@ -221,7 +221,7 @@ export default {
        * brokerId,cateId
        */
       fetchGetMainBusinessData(cateId){
-          this.$http.postJson(this.$api.apiGetMainBusiness, {
+          this.$http.get(this.$api.apiGetMainBusiness, {
             //brokerId: this.brokerId,
             cateId:cateId
           }).then(res => {
@@ -279,7 +279,7 @@ export default {
           var businessIds=this.mainBusinessList.map((item,index)=>{
             return item.businessId;
           });
-          this.$http.postForm(this.$api.apiSaveMainBusiness, {
+          this.$http.get(this.$api.apiSaveMainBusiness, {
               //brokerId: this.brokerId,
               cateId:this.tabIndex,
               businessIds:businessIds

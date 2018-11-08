@@ -25,7 +25,7 @@ module.exports = function (env) {
     }
     if (fs.existsSync(viewPathJs) && fs.existsSync(viewPathHtml)) {
       
-      htmlConf.entry[view]=["babel-polyfill","whatwg-fetch",viewPathJs];
+      htmlConf.entry[view]=["whatwg-fetch",viewPathJs];
       //console.log(htmlConf.entry);
 
       htmlConf.plugins.push(new HtmlWebpackPlugin({

@@ -37,7 +37,7 @@ export default {
             font-size: 28px;
         }
         .offline-container p span{
-            font-size: 24px;
+            font-size: 36px;
             color:#f0610f
         }
 </style>
